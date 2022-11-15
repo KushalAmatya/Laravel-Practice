@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome', ["header" => "My name is anthony gonzalez",
-    'todoList' => ['test1', "test2"],
-]);
-});
+use App\Http\Controllers\todolistcontroller;
+
+//use kebab casing
+Route::get('/', [todolistcontroller::class,'index']);
+
+Route::post('/save-todo', [todolistcontroller::class,'saveTodo'])->name('saveTodo');
+
+Route::get('/delete/{id}', [todolistcontroller::class,'delTodo']);
+
+Route::get('/edit/{id}', [todolistcontroller::class,'editTodo']);
+
+Route::post('/edit', [todolistcontroller::class,'updateTodo'])->name('updateTodo');
+
+
