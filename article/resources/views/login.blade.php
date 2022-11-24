@@ -1,7 +1,13 @@
 @extends('layout.app')
 
 @section('content')
-<h1>Login</h1>
+<h1 class="text-center">Login</h1>
+@if(Session::has('fail'))
+    
+    <div class="alert alert-danger" role="alert">
+        {{Session::get('fail')}}
+    </div>
+@endif
 <form action="{{route('loginauth')}}" method="POST" class="mx-auto col-6">
         @csrf
        
@@ -12,7 +18,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password">
         </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">

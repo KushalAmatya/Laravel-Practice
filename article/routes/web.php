@@ -13,7 +13,7 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
-Route::get('/',[ArticleController::class,"index"])->name('home');
+Route::get('/',[ArticleController::class,"index"])->name('home')->middleware(['auth']);
 
 Route::get('/login',[ArticleController::class,"getlogin"])->name("login");
 
@@ -22,3 +22,5 @@ Route::get('/register',[ArticleController::class,"getregister"])->name("register
 Route::post('/register',[ArticleController::class,"dataregister"]);
 
 Route::post('/login',[ArticleController::class,"loginauth"])->name('loginauth');
+
+Route::post('/logout',[ArticleController::class,"logouthandle"])->name('logout');

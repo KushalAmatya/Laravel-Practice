@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\article;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use ReflectionFunctionAbstract;
@@ -31,13 +32,14 @@ class ArticleController extends Controller
          $req->validate([
             'username' => 'required',
             'email' => 'required|unique:articles',
-            'password' => 'required'
+            'password' => 'required',
+            'confirm' => 'required'
         ]);
-        $reqObj = new Article();
-        $reqObj->username = $req->username;
-        $reqObj->email = $req->email;
-        $reqObj->password = Hash::make($req->password);
-        $reqObj->save();
+        Article::create([
+            "username" => $req->username,
+            "email" => $req->email,
+            "password" => Hash::make($req->password)
+        ]);
 
         return redirect('login');
     }
@@ -45,21 +47,25 @@ class ArticleController extends Controller
 
     public function loginauth(Request $req)
     {
-          $req->validate([
-            'email' => 'required',
+        
+
+        $req->validate([
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
-        $logObj = Article::where('email','=',$req->email)->first();        
-        if($logObj)
+        if(Auth::attempt($req->only('email','password')))
         {
-            if(Hash::check($req->password,$logObj->password))
-            {
-                return redirect('/');
-            }
+            return redirect()->route("home");
         }
         else{
             return back()->with('fail','User Not Found');
         }
+       
+    }
+    public function logouthandle()
+    {
+        auth()->logout();
+        return redirect()->route('login');
     }
 }

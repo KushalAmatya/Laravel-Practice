@@ -13,15 +13,15 @@
         </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Username</label>
-            <input type="text" class="form-control" name="username">
+            <input type="text" class="form-control @error('username') is-invalid @enderror" name="username">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password">
         </div>
 
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="confirm">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
