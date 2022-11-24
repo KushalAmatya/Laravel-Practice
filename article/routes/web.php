@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ArticleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/',[ArticleController::class,"index"])->name('home');
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login',[ArticleController::class,"getlogin"])->name("login");
+
+Route::get('/register',[ArticleController::class,"getregister"])->name("register");
+
+Route::post('/register',[ArticleController::class,"dataregister"]);
+
+Route::post('/login',[ArticleController::class,"loginauth"])->name('loginauth');
