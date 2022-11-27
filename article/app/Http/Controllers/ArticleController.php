@@ -68,4 +68,6 @@ class ArticleController extends Controller
         auth()->logout();
         return redirect()->route('login');
     }
+
+    
 }

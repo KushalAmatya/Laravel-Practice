@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\curdController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +26,18 @@ Route::post('/register',[ArticleController::class,"dataregister"]);
 Route::post('/login',[ArticleController::class,"loginauth"])->name('loginauth');
 
 Route::post('/logout',[ArticleController::class,"logouthandle"])->name('logout');
+
+Route::post('/create',[curdController::class,"create"])->name('create');
+
+Route::get('/viewtable',[curdController::class,"viewtable"])->name("viewtable")->middleware(['auth']);
+
+Route::get('/delete/{id}', [curdController::class,'deletedata']);
+
+Route::get('/edit/{id}', [curdController::class,'editdata']);
+
+Route::post('/update',[curdController::class,"update"])->name('update');
+
+
+
+
+
